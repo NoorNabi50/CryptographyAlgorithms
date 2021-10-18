@@ -7,10 +7,14 @@ namespace CaerserCipherAlgorithm
     {
         static void Main(string[] args)
         {
-            string encrypteddata = new Program().EncryptText("Noor Nabi", 3);
+            Console.WriteLine("Please Enter The Data to Encrypt: ");
+
+            string encrypteddata = Console.ReadLine();
+            encrypteddata =  new Program().EncryptText(encrypteddata, 3);
+
             string decryptedata = new Program().DecryptText(encrypteddata, 3);
 
-            Console.WriteLine("Encrypt Data = "+encrypteddata + "\n");
+            Console.WriteLine("\nEncrypt Data = "+encrypteddata + "\n");
             Console.WriteLine("Original String Decrypt ="+decryptedata + "\n");
             Console.ReadLine();
         }
@@ -43,8 +47,7 @@ namespace CaerserCipherAlgorithm
         }
 
         public string DecryptText(string data, int shift)
-        {
-
+        {   
             string DecryptText = "";
             foreach (var item in data)
             {   if (String.IsNullOrWhiteSpace(item.ToString()))
