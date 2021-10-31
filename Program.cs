@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptographyAlgorithms;
+using System;
 using System.Collections.Generic;
 
 namespace CaerserCipherAlgorithm
@@ -7,103 +8,41 @@ namespace CaerserCipherAlgorithm
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please Enter The Data to Encrypt: ");
-
-            string encrypteddata = Console.ReadLine();
-            encrypteddata =  new Program().EncryptText(encrypteddata, 3);
-
-            string decryptedata = new Program().DecryptText(encrypteddata, 3);
-
-            Console.WriteLine("\nEncrypt Data = "+encrypteddata + "\n");
-            Console.WriteLine("Original String Decrypt ="+decryptedata + "\n");
-            Console.ReadLine();
-        }
-
-
-        public string EncryptText(string data, int shift)
-        {
-
-            string EncryptedText = "";
-            foreach (var item in data)
+            Console.WriteLine("***********************************************CryptoGraphy Algorithms In C# By Noor Nabi************************************************");
+            Console.WriteLine("Here Are Algorithms to use : \n1 FOR SHIFT CIPHER\n2 FOR VIGENER CIPHER\n");
+            Console.WriteLine("Enter Above Options To Use ALGORITHM :\n");
+            string option = Console.ReadLine();
+            if (option == "1")
             {
-                if (String.IsNullOrWhiteSpace(item.ToString()))
-                { EncryptedText += item; }
-                else
-                {
-                    char newChar;
-                    if (char.IsUpper(item))
-                    {
-                        newChar = (char)UpperCaseAlphabats.GetValue((Array.IndexOf(UpperCaseAlphabats, item) + shift) % 26);
-                    }
-                    else
-                    {
-                        newChar = (char)LowerCaseAlphabats.GetValue((Array.IndexOf(LowerCaseAlphabats, item) + shift) % 26);
-                    }
-                    EncryptedText += newChar;
-                }
+                Console.WriteLine("\nEnter Plain Text to Encrypt:");
+                string encrypteddata = Console.ReadLine();
+                Console.WriteLine("Enter Key to Encrypt");
+                int key = Convert.ToInt32(Console.ReadLine());
+                encrypteddata = new ShiftCipher().EncryptText(encrypteddata, key);
+                string decryptedata = new ShiftCipher().DecryptText(encrypteddata, key);
+                Console.WriteLine("\nEncrypt Data = " + encrypteddata + "\n");
+                Console.WriteLine("Original Message Decrypt =" + decryptedata + "\n");
+                Console.ReadLine();
             }
 
-            return EncryptedText;
-        }
-
-        public string DecryptText(string data, int shift)
-        {   
-            string DecryptText = "";
-            foreach (var item in data)
-            {   if (String.IsNullOrWhiteSpace(item.ToString()))
-                { DecryptText += item; }
-                else
-                {
-                    char newChar;
-                    if (char.IsUpper(item))
-                    {
-                        newChar = (char)UpperCaseAlphabats.GetValue((Array.IndexOf(UpperCaseAlphabats, item) - shift) % 26);
-                    }
-                    else
-                    {
-                        newChar = (char)LowerCaseAlphabats.GetValue((Array.IndexOf(LowerCaseAlphabats, item) - shift) % 26);
-
-                    }
-                    DecryptText += newChar;
-                }
-            }
-
-            return DecryptText;
-        }
-
-        public char[] LowerCaseAlphabats
-        {
-            get
+            else if (option == "2")
             {
-                char[] loweralpha = new char[26];
-                int i = 0;
-                for(char c='a';c<='z';c++)
-                {
-                    loweralpha.SetValue(c,i);
-                    i++;
+                Console.WriteLine("\nEnter Plain Text to Encrypt:");
+                string encrypteddata = Console.ReadLine();
+                Console.WriteLine("Enter Keys to Encrypt:");
+                string keys = Console.ReadLine();
+                encrypteddata = new VigenerCipher().DecryptText(encrypteddata, keys);
 
-                }
 
-                return loweralpha;
             }
-        }
 
-        public char[] UpperCaseAlphabats
-        {
-            get
+            else
             {
-                char[] upperalpha = new char[26];
-                int i = 0;
-                for (char c = 'A'; c <= 'Z'; c++)
-                {
-                    upperalpha.SetValue(c, i);
-                    i++;
-
-                }
-
-                return upperalpha;
+                Console.WriteLine("Invalid Option Selected");
             }
+
         }
+
 
     }
 }
