@@ -90,7 +90,7 @@ namespace CryptographyAlgorithms
         {
             string DeccryptedText = "";
 
-            for (int i = 0; i < data.Length; i++)
+            for (int i = 0,j=0; i < data.Length && j<0; i++,j++)
             {
                 if (string.IsNullOrWhiteSpace(data[i].ToString()))
                 {
@@ -116,6 +116,12 @@ namespace CryptographyAlgorithms
                     }
                     DeccryptedText += newChar;
                 }
+                if(keys[i]>0 || keys[i]==0)
+                {
+
+                }
+                
+
             }
             return DeccryptedText;
         }
