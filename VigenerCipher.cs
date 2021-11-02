@@ -7,7 +7,7 @@ namespace CryptographyAlgorithms
 {
   public  class VigenerCipher
     {
-        private char[] LowerCaseAlphabats
+        public char[] LowerCaseAlphabats
         {
             get
             {
@@ -23,7 +23,7 @@ namespace CryptographyAlgorithms
                 return loweralpha;
             }
         }
-        private char[] UpperCaseAlphabats
+        public char[] UpperCaseAlphabats
         {
             get
             {
@@ -51,33 +51,34 @@ namespace CryptographyAlgorithms
 
 
 
-        public string EncryptText(string data, string keys)
+        public string EncryptText(string data, dynamic keys)
         {
             string EncryptedText = "";
 
-            for(int i=0;i<data.Length;i++)
+            for (int i = 0, j = 0; i <= data.Length && j != -1; i++, j++)
             {
+                if (data.Length == i)
+                {
+                    break;
+                }
+                else if (keys.Length == j)
+                {
+                    j = 0;
+                }
+                
                 if (string.IsNullOrWhiteSpace(data[i].ToString()))
                 {
                     EncryptedText += data[i];
                 }
                 else
                 {
-                    if(!keys.All(char.IsDigit))
-                    {
-                        keyVal = Array.IndexOf(UpperCaseAlphabats, keys[i]);
-                    }
-                    else
-                    {
-                        keyVal = keys[i];
-                    }
                     if (char.IsUpper(data[i]))
                     {  
-                        newChar = (char)UpperCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(UpperCaseAlphabats, data[i]) + keyVal));
+                        newChar = (char)UpperCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(UpperCaseAlphabats, data[i]) + Convert.ToInt32(keys[j])));
                     }
                     else
                     {
-                        newChar = (char)LowerCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(LowerCaseAlphabats, data[i]) + keyVal));
+                        newChar = (char)LowerCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(LowerCaseAlphabats, data[i]) + Convert.ToInt32(keys[j])));
                     }
                     EncryptedText += newChar;
                 }
@@ -86,40 +87,38 @@ namespace CryptographyAlgorithms
         }
 
 
-        public string DecryptText(string data, string keys)
+        public string DecryptText(string data, dynamic keys)
         {
             string DeccryptedText = "";
 
-            for (int i = 0,j=0; i < data.Length && j<0; i++,j++)
+            for (int i = 1,j=1; i <= data.Length && j<0; i++,j++)
             {
+                if(keys.Length==j)
+                {
+                    j = 0;
+                }
+                else if(data.Length==i)
+                {
+                    j = -1;
+
+                }
                 if (string.IsNullOrWhiteSpace(data[i].ToString()))
                 {
                     DeccryptedText += data[i];
                 }
                 else
                 {
-                    if (!keys.All(char.IsDigit))
-                    {
-                        keyVal = Array.IndexOf(UpperCaseAlphabats, keys[i]);
-                    }
-                    else
-                    {
-                        keyVal = keys[i];
-                    }
                     if (char.IsUpper(data[i]))
                     {
-                        newChar = (char)UpperCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(UpperCaseAlphabats, data[i]) - keyVal));
+                        newChar = (char)UpperCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(UpperCaseAlphabats, data[i]) - keys[j]));
                     }
                     else
                     {
-                        newChar = (char)LowerCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(LowerCaseAlphabats, data[i]) - keyVal));
+                        newChar = (char)LowerCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(LowerCaseAlphabats, data[i]) - keys[j]));
                     }
                     DeccryptedText += newChar;
                 }
-                if(keys[i]>0 || keys[i]==0)
-                {
-
-                }
+               
                 
 
             }
