@@ -91,16 +91,15 @@ namespace CryptographyAlgorithms
         {
             string DeccryptedText = "";
 
-            for (int i = 1,j=1; i <= data.Length && j<0; i++,j++)
+            for (int i = 0,j=0; i <= data.Length && j!=-1; i++,j++)
             {
-                if(keys.Length==j)
+                if (data.Length == i)
+                {
+                    break;
+                }
+                else if (keys.Length == j)
                 {
                     j = 0;
-                }
-                else if(data.Length==i)
-                {
-                    j = -1;
-
                 }
                 if (string.IsNullOrWhiteSpace(data[i].ToString()))
                 {
@@ -110,11 +109,13 @@ namespace CryptographyAlgorithms
                 {
                     if (char.IsUpper(data[i]))
                     {
-                        newChar = (char)UpperCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(UpperCaseAlphabats, data[i]) - keys[j]));
+                        
+                        newChar = (char)UpperCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(UpperCaseAlphabats, data[i]) - Convert.ToInt32(keys[j])));
                     }
                     else
                     {
-                        newChar = (char)LowerCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(LowerCaseAlphabats, data[i]) - keys[j]));
+                         newChar = (char)LowerCaseAlphabats.GetValue(ApplyModuluesTheorem(Array.IndexOf(LowerCaseAlphabats, data[i]) - Convert.ToInt32(keys[j])));
+
                     }
                     DeccryptedText += newChar;
                 }
