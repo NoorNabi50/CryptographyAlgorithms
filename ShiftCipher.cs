@@ -11,7 +11,7 @@ namespace CryptographyAlgorithms
             get
             {
                 char[] loweralpha = new char[30];
-                int i = 0;
+                int i = 1;
                 for (char c = 'a'; c <= 'z'; c++)
                 {
                     loweralpha.SetValue(c, i);
@@ -43,10 +43,13 @@ namespace CryptographyAlgorithms
         {
 
             string EncryptedText = "";
-            foreach (var item in data)
+            foreach (char item in data)
             {
-                if (string.IsNullOrWhiteSpace(item.ToString()))
-                { EncryptedText += item; }
+                if (string.IsNullOrWhiteSpace(item.ToString()) || char.IsDigit(item))
+                { 
+                    EncryptedText += item; 
+                }
+             
                 else
                 {
                     char newChar;
@@ -81,7 +84,7 @@ namespace CryptographyAlgorithms
             string DecryptText = "";
             foreach (var item in data)
             {
-                if (String.IsNullOrWhiteSpace(item.ToString()))
+                if (String.IsNullOrWhiteSpace(item.ToString()) || char.IsDigit(item))
                 { DecryptText += item; }
                 else
                 {

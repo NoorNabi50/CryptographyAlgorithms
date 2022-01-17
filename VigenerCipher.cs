@@ -12,7 +12,7 @@ namespace CryptographyAlgorithms
             get
             {
                 char[] loweralpha = new char[30];
-                int i = 0;
+                int i = 1;
                 for (char c = 'a'; c <= 'z'; c++)
                 {
                     loweralpha.SetValue(c, i);
@@ -28,7 +28,7 @@ namespace CryptographyAlgorithms
             get
             {
                 char[] upperalpha = new char[30];
-                int i = 0;
+                int i = 1;
                 for (char c = 'A'; c <= 'Z'; c++)
                 {
                     upperalpha.SetValue(c, i);
@@ -57,6 +57,7 @@ namespace CryptographyAlgorithms
 
             for (int i = 0, j = 0; i <= data.Length && j != -1; i++, j++)
             {
+
                 if (data.Length == i)
                 {
                     break;
@@ -65,6 +66,9 @@ namespace CryptographyAlgorithms
                 {
                     j = 0;
                 }
+
+
+
                 
                 if (string.IsNullOrWhiteSpace(data[i].ToString()))
                 {
